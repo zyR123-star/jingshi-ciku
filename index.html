@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经世词库 · 大一经济学入门</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 36C13 30 17 23 21 16"/>
+            <path d="M21 16c4-7 8-11 14-11"/>
+            <path d="M8 12c6 8 10 13 16 17"/>
+            <path d="M24 29c5 3 11 6 18 7"/>
+            <circle cx="38" cy="12" r="2.6"/>
+          </svg>
+        </div>
+        <div>
+          <p class="brand-kicker">UNIVERSITY LEARNING</p>
+          <h1>经世词库</h1>
+        </div>
+      </div>
+      <div class="subject-switch">
+        <span class="label">当前学科</span>
+        <select id="subjectSelect" aria-label="切换学科"></select>
+      </div>
+      <div class="masthead-stats" aria-label="学习统计">
+        <div class="stat">
+          <span>已读</span>
+          <strong id="statSeen">0</strong>
+        </div>
+        <div class="stat">
+          <span>掌握</span>
+          <strong id="statMastered">0</strong>
+        </div>
+        <div class="stat">
+          <span>连续学习</span>
+          <strong id="statStreak">0<small>天</small></strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="主要视图">
+    <button class="tab" id="tab-subjects" data-view="subjects" role="tab" aria-selected="false">
+      <i data-lucide="layout-grid"></i><span>学科中心</span>
+    </button>
+    <button class="tab active" id="tab-today" data-view="today" role="tab" aria-selected="true">
+      <i data-lucide="book-open"></i><span>今日学习</span>
+    </button>
+    <button class="tab" id="tab-calendar" data-view="calendar" role="tab" aria-selected="false">
+      <i data-lucide="calendar"></i><span>学习日历</span>
+    </button>
+    <button class="tab" id="tab-roadmap" data-view="roadmap" role="tab" aria-selected="false">
+      <i data-lucide="route"></i><span>阶段路线</span>
+    </button>
+    <button class="tab" id="tab-glossary" data-view="glossary" role="tab" aria-selected="false">
+      <i data-lucide="library"></i><span>词库总览</span>
+    </button>
+    <button class="tab" id="tab-deep" data-view="deep" role="tab" aria-selected="false">
+      <i data-lucide="bookmark"></i><span>深度学习</span>
+    </button>
+  </nav>
+
+  <main>
+    <section class="view" id="view-subjects" role="tabpanel" hidden>
+      <div class="band-head roadmap-head">
+        <h2>学科中心</h2>
+        <span class="band-sub" id="subjectHint">0 个学科</span>
+      </div>
+      <div class="subject-grid" id="subjectGrid"></div>
+    </section>
+
+    <section class="view active" id="view-today" role="tabpanel">
+      <section class="band dashboard-band">
+        <div class="band-head">
+          <h2>今日看板</h2>
+          <span class="band-sub">每日一句</span>
+        </div>
+        <p class="motivation-line" id="dashboardHint"></p>
+        <div class="dashboard-grid" id="dashboardGrid"></div>
+      </section>
+
+      <div class="today-layout">
+        <article class="card term-card" id="dailyCard">
+          <div class="card-topline">
+            <span class="eyebrow">今日词签</span>
+            <span class="card-no" id="cardNo">NO. 01</span>
+          </div>
+
+          <div class="chips" id="cardChips"></div>
+
+          <div class="term-block">
+            <h2 id="termName">稀缺性</h2>
+            <p class="term-en" id="termEn">Scarcity</p>
+          </div>
+
+          <div class="viz-wrap" id="vizWrap" aria-hidden="true"></div>
+
+          <div class="explain">
+            <div class="explain-row">
+              <span class="label">一句话解释</span>
+              <p id="termDef">资源有限，欲望无穷；稀缺让选择成为必然。</p>
+            </div>
+            <div class="explain-row">
+              <span class="label">生活例子</span>
+              <p id="termExample">图书馆座位有限，想坐窗边就要早去，这就是稀缺。</p>
+            </div>
+            <div class="explain-row accent">
+              <span class="label">记忆钩子</span>
+              <p id="termTip">稀缺不是东西少，而是欲望更多。</p>
+            </div>
+          </div>
+
+          <div class="related-block">
+            <span class="label">关联词</span>
+            <div class="related-list" id="relatedList"></div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-primary" id="drawBtn">
+              <i data-lucide="shuffle"></i><span>换一个词</span>
+            </button>
+            <button class="btn btn-ghost" id="masterBtn">
+              <i data-lucide="check-circle-2"></i><span>标记掌握</span>
+            </button>
+            <button class="btn btn-ghost" id="deepBtn">
+              <i data-lucide="book-open"></i><span>深入了解</span>
+            </button>
+          </div>
+        </article>
+
+        <aside class="side-stack">
+          <section class="card goal-card">
+            <div class="goal-ring" id="goalRing" aria-hidden="true">
+              <svg viewBox="0 0 120 120">
+                <circle class="goal-bg" cx="60" cy="60" r="50"/>
+                <circle class="goal-fill" id="goalFill" cx="60" cy="60" r="50"/>
+              </svg>
+              <div class="goal-center">
+                <strong id="goalCount">0</strong>
+                <span>今日</span>
+              </div>
+            </div>
+            <div class="goal-meta">
+              <span class="label">每日目标</span>
+              <h3 id="goalText">0 / 3 词</h3>
+              <p id="goalHint">每天认识 3 个词</p>
+              <div class="goal-stepper">
+                <button class="icon-btn" id="goalMinusBtn" aria-label="减少每日目标">
+                  <i data-lucide="minus"></i>
+                </button>
+                <input type="number" id="goalInput" min="1" max="20" value="3" aria-label="每日目标词数">
+                <button class="icon-btn" id="goalPlusBtn" aria-label="增加每日目标">
+                  <i data-lucide="plus"></i>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card recall-card">
+            <div class="recall-head">
+              <span class="label">三日小测</span>
+              <i data-lucide="clipboard-check"></i>
+            </div>
+            <p class="quiz-meta" id="quizMeta">每 3 天一次 · 每次 10 题</p>
+            <p class="quiz-status" id="quizStatus">从已学词条中抽取</p>
+            <button class="btn btn-primary" id="quizBtn">
+              <i data-lucide="clipboard-check"></i><span>开始小测</span>
+            </button>
+          </section>
+
+          <section class="card mini-progress">
+            <div class="recall-head">
+              <span class="label">阶段进度</span>
+            </div>
+            <p class="mini-stage-name" id="miniStageName">概念地基</p>
+            <div class="mini-bar"><span id="miniStageBar"></span></div>
+            <p class="mini-stage-count" id="miniStageCount">0 / 18 词</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="band review-band">
+        <div class="band-head">
+          <h2>今日复习</h2>
+          <span class="band-sub" id="reviewHint">0 个待复习</span>
+        </div>
+        <div class="review-grid" id="reviewList"></div>
+      </section>
+
+      <section class="band">
+        <div class="band-head">
+          <h2>最近看过</h2>
+          <span class="band-sub" id="recentHint">0 个词</span>
+        </div>
+        <div class="recent-grid" id="recentList"></div>
+      </section>
+    </section>
+
+    <section class="view" id="view-calendar" role="tabpanel" hidden>
+      <div class="band-head roadmap-head">
+        <h2>学习日历</h2>
+        <span class="band-sub" id="calendarHint"></span>
+      </div>
+      <div class="calendar-layout">
+        <section class="card calendar-card">
+          <div class="calendar-head">
+            <button class="icon-btn" id="calendarPrevBtn" aria-label="上个月">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <h3 id="calendarTitle">2026 年 8 月</h3>
+            <button class="icon-btn" id="calendarNextBtn" aria-label="下个月">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
+        <aside class="card calendar-detail" id="calendarDetail"></aside>
+      </div>
+    </section>
+
+    <section class="view" id="view-roadmap" role="tabpanel" hidden>
+      <div class="band-head roadmap-head">
+        <h2>学习路线</h2>
+        <span class="band-sub" id="roadmapHint">4 个阶段</span>
+      </div>
+      <div class="stage-timeline" id="stageTimeline"></div>
+
+      <section class="card stage-detail" id="stageDetail" hidden>
+        <div class="stage-detail-head">
+          <div>
+            <span class="eyebrow" id="stageDetailCode">STAGE 01</span>
+            <h3 id="stageDetailTitle">概念地基</h3>
+            <p class="term-en" id="stageDetailEn">Foundations</p>
+          </div>
+          <div class="stage-detail-meta">
+            <span id="stageDetailWeeks">第 1-8 周</span>
+            <strong id="stageDetailCount">0 / 18 词</strong>
+          </div>
+        </div>
+        <div class="stage-goal">
+          <span class="label">阶段目标</span>
+          <p id="stageDetailGoal"></p>
+        </div>
+        <div class="topic-tags" id="stageDetailTopics"></div>
+        <div class="stage-progress">
+          <div class="mini-bar"><span id="stageDetailBar"></span></div>
+        </div>
+        <div class="stage-words" id="stageDetailWords"></div>
+      </section>
+    </section>
+
+    <section class="view" id="view-glossary" role="tabpanel" hidden>
+      <div class="glossary-toolbar">
+        <div class="search-box">
+          <i data-lucide="search"></i>
+          <input type="search" id="searchInput" placeholder="搜索词条" autocomplete="off" aria-label="搜索词条">
+        </div>
+        <div class="filter-group" id="stageFilters" aria-label="阶段筛选"></div>
+        <div class="filter-group" id="diffFilters" aria-label="难度筛选"></div>
+        <button class="btn btn-ghost status-toggle" id="masteredOnly" aria-pressed="false">
+          <i data-lucide="filter"></i><span>只看掌握</span>
+        </button>
+      </div>
+      <div class="glossary-meta">
+        <p id="glossaryCount">共 86 个词</p>
+      </div>
+      <div class="glossary-grid" id="glossaryGrid"></div>
+    </section>
+
+    <section class="view" id="view-deep" role="tabpanel" hidden>
+      <div class="band-head roadmap-head">
+        <h2>深度学习清单</h2>
+        <span class="band-sub" id="deepHint">0 个词条</span>
+      </div>
+      <section class="card mistake-panel" id="mistakePanel"></section>
+      <div class="glossary-grid" id="deepList"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>经世词库</span>
+    <span id="footerDate"></span>
+  </footer>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel card" role="dialog" aria-modal="true" aria-labelledby="modalTerm">
+      <button class="icon-btn modal-close" data-close-modal aria-label="关闭">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="chips" id="modalChips"></div>
+      <h3 id="modalTerm">机会成本</h3>
+      <p class="term-en" id="modalEn">Opportunity Cost</p>
+      <div class="modal-body">
+        <div class="explain-row">
+          <span class="label">一句话解释</span>
+          <p id="modalDef"></p>
+        </div>
+        <div class="explain-row">
+          <span class="label">生活例子</span>
+          <p id="modalExample"></p>
+        </div>
+        <div class="explain-row accent">
+          <span class="label">记忆钩子</span>
+          <p id="modalTip"></p>
+        </div>
+      </div>
+      <div class="related-block">
+        <span class="label">关联词</span>
+        <div class="related-list" id="modalRelated"></div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-primary" id="modalReviewBtn">
+          <i data-lucide="refresh-cw"></i><span>复习完成</span>
+        </button>
+        <button class="btn btn-ghost" id="modalMasterBtn">
+          <i data-lucide="check-circle-2"></i><span>标记掌握</span>
+        </button>
+        <button class="btn btn-ghost" id="modalDeepBtn">
+          <i data-lucide="book-open"></i><span>深入了解</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="deepModal" hidden>
+    <div class="modal-backdrop" data-close-deep></div>
+    <div class="modal-panel card deep-panel" role="dialog" aria-modal="true" aria-labelledby="deepTerm">
+      <button class="icon-btn modal-close" data-close-deep aria-label="关闭">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="chips" id="deepChips"></div>
+      <h3 id="deepTerm">机会成本</h3>
+      <p class="term-en" id="deepEn">Opportunity Cost</p>
+      <div class="deep-body">
+        <section class="deep-section">
+          <span class="label">概念拆解</span>
+          <p id="deepDef"></p>
+        </section>
+        <section class="deep-section">
+          <span class="label">生活场景</span>
+          <p id="deepExample"></p>
+        </section>
+        <section class="deep-section accent">
+          <span class="label">记忆钩子</span>
+          <p id="deepTip"></p>
+        </section>
+        <section class="deep-section">
+          <span class="label">考试视角</span>
+          <p id="deepAngle"></p>
+        </section>
+        <section class="deep-section">
+          <span class="label">复习计划</span>
+          <div class="schedule-chips" id="deepSchedule"></div>
+        </section>
+        <section class="deep-section">
+          <span class="label">关联词</span>
+          <div class="related-list" id="deepRelated"></div>
+        </section>
+        <section class="deep-section">
+          <span class="label">我的笔记</span>
+          <textarea id="deepNotes" rows="5" placeholder="写一点自己的理解"></textarea>
+        </section>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-ghost" id="deepToggleBtn">
+          <i data-lucide="bookmark"></i><span>加入深度学习</span>
+        </button>
+        <button class="btn btn-ghost" id="deepMistakeBtn" hidden>
+          <i data-lucide="trash-2"></i><span>移出错题本</span>
+        </button>
+        <button class="btn btn-primary" id="deepReviewBtn">
+          <i data-lucide="refresh-cw"></i><span>复习完成</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="subjectModal" hidden>
+    <div class="modal-backdrop" data-close-subject></div>
+    <div class="modal-panel card subject-modal" role="dialog" aria-modal="true" aria-labelledby="subjectModalTitle">
+      <button class="icon-btn modal-close" data-close-subject aria-label="关闭">
+        <i data-lucide="x"></i>
+      </button>
+      <h3 id="subjectModalTitle">选择专业模板</h3>
+      <p class="template-hint">选择一个专业，创建后立即拥有完整词库、阶段路线与复习计划</p>
+      <div class="template-grid" id="templateGrid"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="quizModal" hidden>
+    <div class="modal-backdrop" data-close-quiz></div>
+    <div class="modal-panel card quiz-panel" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+      <button class="icon-btn modal-close" data-close-quiz aria-label="关闭">
+        <i data-lucide="x"></i>
+      </button>
+      <h3 id="quizTitle">三日小测</h3>
+      <p class="term-en" id="quizProgress">第 1 / 10 题</p>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-actions" id="quizActions">
+        <button class="btn btn-ghost" id="quizTrueBtn"><span>正确</span></button>
+        <button class="btn btn-ghost" id="quizFalseBtn"><span>错误</span></button>
+      </div>
+      <div class="quiz-feedback" id="quizFeedback" hidden></div>
+      <button class="btn btn-primary" id="quizNextBtn" hidden><span>下一题</span></button>
+    </div>
+  </div>
+
+  <div class="modal" id="masteryModal" hidden>
+    <div class="modal-backdrop" data-close-mastery></div>
+    <div class="modal-panel card mastery-panel" role="dialog" aria-modal="true" aria-labelledby="masteryTitle">
+      <button class="icon-btn modal-close" data-close-mastery aria-label="关闭">
+        <i data-lucide="x"></i>
+      </button>
+      <h3 id="masteryTitle">选择掌握程度</h3>
+      <p class="term-en" id="masteryTerm">机会成本</p>
+      <div class="mastery-options" id="masteryOptions"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="data.js"></script>
+  <script src="data-math.js"></script>
+  <script src="data-linear.js"></script>
+  <script src="data-english.js"></script>
+  <script src="data-cs.js"></script>
+  <script src="data-music.js"></script>
+  <script src="data-templates.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
