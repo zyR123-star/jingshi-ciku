@@ -878,13 +878,19 @@
     switchView("today");
   }
 
-  function renderTemplateGrid() {
+  function renderTemplateGrid(query) {
     const container = $("templateGrid");
     if (typeof TEMPLATES === "undefined" || TEMPLATES.length === 0) {
       container.innerHTML = '<div class="glossary-empty">暂无专业模板</div>';
       return;
     }
-    container.innerHTML = TEMPLATES.map((tpl) =>
+    const q = (query || "").trim().toLowerCase();
+    const list = TEMPLATES.filter((tpl) => (tpl.name + " " + tpl.en + " " + tpl.desc).toLowerCase().includes(q));
+    if (list.length === 0) {
+      container.innerHTML = '<div class="glossary-empty">没有匹配的专业模板</div>';
+      return;
+    }
+    container.innerHTML = list.map((tpl) =>
       '<button class="template-card" data-template="' + tpl.id + '" style="border-top:4px solid ' + tpl.color + '">' +
       '<span class="template-count">' + tpl.terms.length + " 个词</span>" +
       "<h3>" + escapeHtml(tpl.name) + "</h3>" +
@@ -898,6 +904,8 @@
   }
 
   function openSubjectModal() {
+    const searchInput = $("templateSearchInput");
+    if (searchInput) searchInput.value = "";
     renderTemplateGrid();
     $("subjectModal").hidden = false;
     document.body.style.overflow = "hidden";
@@ -1560,6 +1568,7 @@
     });
 
     $("subjectSelect").addEventListener("change", (e) => setActiveSubject(e.target.value));
+    $("templateSearchInput").addEventListener("input", (e) => renderTemplateGrid(e.target.value));
     $("calendarPrevBtn").addEventListener("click", () => changeCalendarMonth(-1));
     $("calendarNextBtn").addEventListener("click", () => changeCalendarMonth(1));
 

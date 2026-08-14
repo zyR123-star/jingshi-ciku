@@ -193,5 +193,83 @@ const TEMPLATES = [
       { id: "treatment", stage: 4, term: "治疗", en: "Treatment", cat: "临床", diff: 1, def: "为控制疾病、缓解症状采取的措施。", example: "药物治疗、手术。", tip: "治疗需个体化。", related: ["diagnosis", "tumor", "prevention"] },
       { id: "prevention", stage: 4, term: "预防", en: "Prevention", cat: "临床", diff: 1, def: "采取措施降低疾病发生风险。", example: "疫苗、健康生活。", tip: "预防优于治疗。", related: ["immunity", "treatment", "diagnosis"] }
     ]
+  },
+  {
+    id: "tpl-water",
+    name: "水利水电工程管理",
+    en: "Water & Hydropower Management",
+    color: "#2e6f8f",
+    desc: "水资源、水工建筑、水电站与工程管理。",
+    stages: [
+      { name: "水资源与水文学", en: "Water Resources & Hydrology", code: "01", goal: "理解流域、径流、洪水与水资源评价。", weeks: "第 1-6 周", topics: ["水资源", "流域", "径流", "洪水"] },
+      { name: "水利工程与水工建筑", en: "Hydraulic Structures", code: "02", goal: "认识水库、大坝、溢洪道与引水工程。", weeks: "第 7-12 周", topics: ["水库", "大坝", "溢洪道", "水头"] },
+      { name: "水电站与机电", en: "Hydropower & Electromechanical", code: "03", goal: "掌握水轮机、发电机与装机出力。", weeks: "第 13-18 周", topics: ["水电站", "水轮机", "发电机", "装机容量"] },
+      { name: "工程管理与安全", en: "Management & Safety", code: "04", goal: "理解调度、灌溉、导流与安全管理。", weeks: "第 19-24 周", topics: ["调度", "灌溉", "施工导流", "安全管理"] }
+    ],
+    terms: [
+      { id: "water_resource", stage: 1, term: "水资源", en: "Water Resources", cat: "水资源", diff: 1, def: "可供人类利用的地表水和地下水总量。", example: "河流、湖泊、地下水都是水资源。", tip: "水资源评价关注数量、质量与时空分布。", related: ["watershed", "runoff", "reservoir"] },
+      { id: "watershed", stage: 1, term: "流域", en: "Watershed", cat: "水资源", diff: 1, def: "降落到某一水系并汇入共同出口的集水区域。", example: "长江流域汇集大量支流来水。", tip: "流域是水文分析的基本单元。", related: ["water_resource", "runoff", "flood"] },
+      { id: "runoff", stage: 1, term: "径流", en: "Runoff", cat: "水资源", diff: 2, def: "降水经地表或地下汇入河流的水量。", example: "暴雨后河流流量增大就是径流增加。", tip: "径流有地表径流与地下径流。", related: ["watershed", "flow", "flood"] },
+      { id: "flood", stage: 1, term: "洪水", en: "Flood", cat: "水资源", diff: 1, def: "河道水位和流量超过正常容纳能力的水情。", example: "连续暴雨可能形成洪水。", tip: "洪水分析是防洪设计的基础。", related: ["flood_control", "reservoir", "watershed"] },
+      { id: "flood_control", stage: 1, term: "防洪", en: "Flood Control", cat: "水资源", diff: 1, def: "通过工程与非工程措施减少洪水灾害。", example: "水库调蓄、堤防加固都是防洪措施。", tip: "防洪是水利工程的重要任务。", related: ["flood", "reservoir", "spillway"] },
+      { id: "sediment", stage: 1, term: "泥沙", en: "Sediment", cat: "水资源", diff: 2, def: "水流携带的固体颗粒物。", example: "黄河含沙量高。", tip: "泥沙影响水库寿命与河道演变。", related: ["runoff", "reservoir", "diversion_tunnel"] },
+      { id: "reservoir", stage: 2, term: "水库", en: "Reservoir", cat: "水工建筑", diff: 1, def: "拦蓄径流、调节水量的蓄水工程。", example: "水库可调节汛期洪水与枯期供水。", tip: "水库库容决定调节能力。", related: ["dam", "flood_control", "water_level"] },
+      { id: "dam", stage: 2, term: "大坝", en: "Dam", cat: "水工建筑", diff: 1, def: "横跨河道、挡水形成水头的建筑物。", example: "重力坝、拱坝都是常见坝型。", tip: "大坝安全是水利工程的生命线。", related: ["reservoir", "foundation", "safety"] },
+      { id: "spillway", stage: 2, term: "溢洪道", en: "Spillway", cat: "水工建筑", diff: 2, def: "用于宣泄多余洪水、保护大坝安全的设施。", example: "洪水超过库容时由溢洪道泄走。", tip: "溢洪道是水库的“安全阀”。", related: ["flood", "dam", "flood_discharge"] },
+      { id: "water_head", stage: 2, term: "水头", en: "Water Head", cat: "水工建筑", diff: 2, def: "上下游水位差，决定水能大小。", example: "高坝形成高水头，可获得更多水能。", tip: "水头与流量共同决定水电站出力。", related: ["dam", "hydropower_station", "output"] },
+      { id: "foundation", stage: 2, term: "坝基", en: "Dam Foundation", cat: "水工建筑", diff: 3, def: "承载大坝荷载的基础岩土体。", example: "坝基渗漏会影响大坝稳定。", tip: "坝基处理是坝工设计重点。", related: ["dam", "safety", "reservoir"] },
+      { id: "diversion_tunnel", stage: 2, term: "引水隧洞", en: "Diversion Tunnel", cat: "水工建筑", diff: 3, def: "穿过山体将水引向水轮机或下游的隧洞。", example: "引水式水电站常用隧洞引水。", tip: "隧洞衬砌控制渗漏与稳定。", related: ["hydropower_station", "flow", "construction_diversion"] },
+      { id: "hydropower_station", stage: 3, term: "水电站", en: "Hydropower Station", cat: "机电", diff: 1, def: "将水能转化为电能的工程设施。", example: "水电站用水流推动水轮机发电。", tip: "水电站由水工、机电与厂房组成。", related: ["turbine", "generator", "water_head"] },
+      { id: "turbine", stage: 3, term: "水轮机", en: "Turbine", cat: "机电", diff: 2, def: "将水流能量转化为旋转机械能的设备。", example: "混流式水轮机适合中水头电站。", tip: "水轮机是水电站的核心动力设备。", related: ["hydropower_station", "generator", "output"] },
+      { id: "generator", stage: 3, term: "发电机", en: "Generator", cat: "机电", diff: 1, def: "将机械能转化为电能的设备。", example: "水轮机带动发电机转子旋转发电。", tip: "发电机与水轮机同轴联动。", related: ["turbine", "installed_capacity", "output"] },
+      { id: "installed_capacity", stage: 3, term: "装机容量", en: "Installed Capacity", cat: "机电", diff: 2, def: "电站所有机组额定功率之和。", example: "装机 100 万千瓦表示满发功率。", tip: "装机容量决定电站规模上限。", related: ["generator", "output", "hydropower_station"] },
+      { id: "output", stage: 3, term: "出力", en: "Output", cat: "机电", diff: 2, def: "电站实际发出的功率。", example: "枯水期来水少，电站出力下降。", tip: "出力受水头与流量影响。", related: ["water_head", "flow", "installed_capacity"] },
+      { id: "flow", stage: 3, term: "流量", en: "Flow", cat: "水资源", diff: 1, def: "单位时间内通过断面的水量。", example: "流量以立方米每秒计量。", tip: "流量是水文和机组计算的重要参数。", related: ["runoff", "output", "water_head"] },
+      { id: "water_level", stage: 4, term: "水位", en: "Water Level", cat: "管理", diff: 1, def: "水面相对基准面的高程。", example: "水库正常蓄水位是调度控制线。", tip: "水位决定蓄水与发电能力。", related: ["reservoir", "dispatch", "safety"] },
+      { id: "dispatch", stage: 4, term: "调度", en: "Dispatch", cat: "管理", diff: 2, def: "根据来水、用电与防洪要求安排水库运行。", example: "汛前预泄、枯期蓄水都靠调度。", tip: "调度需要防洪、供水与发电协调。", related: ["reservoir", "flood_control", "hydropower_station"] },
+      { id: "irrigation", stage: 4, term: "灌溉", en: "Irrigation", cat: "管理", diff: 1, def: "通过工程设施向农田供水。", example: "渠道把水库水送到田间。", tip: "灌溉用水要讲节约与效率。", related: ["reservoir", "water_resource", "dispatch"] },
+      { id: "construction_diversion", stage: 4, term: "施工导流", en: "Construction Diversion", cat: "管理", diff: 3, def: "施工期间引导河水绕过基坑的临时措施。", example: "围堰加导流洞让坝基干施工。", tip: "导流方案影响工期与安全。", related: ["diversion_tunnel", "dam", "safety"] },
+      { id: "flood_discharge", stage: 4, term: "泄洪", en: "Flood Discharge", cat: "管理", diff: 2, def: "将多余洪水安全排泄至下游。", example: "开启泄洪闸降低库水位。", tip: "泄洪能力是防洪安全的重要保障。", related: ["spillway", "flood", "reservoir"] },
+      { id: "safety", stage: 4, term: "安全管理", en: "Safety Management", cat: "管理", diff: 1, def: "对大坝、机电和运行过程进行风险控制。", example: "定期巡查、监测渗流和位移。", tip: "安全是水利工程管理的底线。", related: ["dam", "foundation", "dispatch"] }
+    ]
+  },
+  {
+    id: "tpl-zhongyao",
+    name: "中药学",
+    en: "Chinese Materia Medica",
+    color: "#a97d12",
+    desc: "中药性能、炮制、配伍、常用药材与方剂。",
+    stages: [
+      { name: "中药基础", en: "Basics", code: "01", goal: "理解中药、四气、五味、归经与毒性。", weeks: "第 1-6 周", topics: ["四气", "五味", "归经", "毒性"] },
+      { name: "药性与配伍", en: "Properties & Compatibility", code: "02", goal: "掌握炮制、饮片、君臣佐使与配伍关系。", weeks: "第 7-12 周", topics: ["炮制", "饮片", "配伍", "君臣佐使"] },
+      { name: "配伍禁忌", en: "Compatibility & Contraindications", code: "03", goal: "熟悉相须、相使、相畏、十八反与十九畏。", weeks: "第 13-18 周", topics: ["相须", "相使", "相恶", "十八反"] },
+      { name: "方剂与应用", en: "Formulas & Application", code: "04", goal: "认识解表、清热、补虚、活血药与方剂组成。", weeks: "第 19-24 周", topics: ["解表药", "清热药", "补虚药", "方剂"] }
+    ],
+    terms: [
+      { id: "zhongyao", stage: 1, term: "中药", en: "Chinese Medicine", cat: "基础", diff: 1, def: "在中医药理论指导下用于防治疾病的天然药物及其制品。", example: "黄芪、当归都是常用中药。", tip: "中药强调性味归经与整体辨证。", related: ["four_natures", "five_flavors", "material"] },
+      { id: "four_natures", stage: 1, term: "四气", en: "Four Natures", cat: "药性", diff: 1, def: "中药的寒、热、温、凉四种药性。", example: "薄荷性凉，附子性热。", tip: "四气指导寒热证用药。", related: ["five_flavors", "meridian_tropism", "toxicity"] },
+      { id: "five_flavors", stage: 1, term: "五味", en: "Five Flavors", cat: "药性", diff: 1, def: "辛、甘、酸、苦、咸五种药味及作用。", example: "酸味药多能收敛，苦味药多能泄。", tip: "五味与功效有对应关系。", related: ["four_natures", "meridian_tropism", "compatibility"] },
+      { id: "meridian_tropism", stage: 1, term: "归经", en: "Meridian Tropism", cat: "药性", diff: 2, def: "药物对特定脏腑经络的选择性作用。", example: "柴胡归肝胆经，多用于肝胆病。", tip: "归经帮助选方定位。", related: ["four_natures", "five_flavors", "formula"] },
+      { id: "ascending_descending", stage: 1, term: "升降浮沉", en: "Ascending & Descending", cat: "药性", diff: 2, def: "药物作用于机体的趋向性。", example: "升麻能升举阳气，代赭石能降逆。", tip: "升降浮沉影响用药方向。", related: ["four_natures", "processing", "formula"] },
+      { id: "toxicity", stage: 1, term: "毒性", en: "Toxicity", cat: "药性", diff: 2, def: "药物对人体产生伤害的性能。", example: "附子有毒，需炮制减毒。", tip: "有毒药要控量、炮制、配伍。", related: ["processing", "material", "formula"] },
+      { id: "processing", stage: 2, term: "炮制", en: "Processing", cat: "药材", diff: 1, def: "按中医药理论对药材进行加工处理。", example: "炒、炙、蒸、煮都是炮制方法。", tip: "炮制可增效、减毒、改变药性。", related: ["material", "decoction_pieces", "toxicity"] },
+      { id: "material", stage: 2, term: "药材", en: "Medicinal Material", cat: "药材", diff: 1, def: "未经或经初加工的中药原药。", example: "干燥的甘草根是药材。", tip: "药材质量决定方剂疗效。", related: ["processing", "decoction_pieces", "zhongyao"] },
+      { id: "decoction_pieces", stage: 2, term: "饮片", en: "Decoction Pieces", cat: "药材", diff: 1, def: "经炮制并切制成型的供调配煎煮的药片。", example: "汤剂中使用的就是饮片。", tip: "饮片是临床调配的直接形式。", related: ["material", "processing", "formula"] },
+      { id: "compatibility", stage: 2, term: "配伍", en: "Compatibility", cat: "配伍", diff: 2, def: "根据病情需要将多种药物组合使用。", example: "方剂中多药配伍以增效减毒。", tip: "配伍讲究主次与协同。", related: ["sovereign_minister", "mutual_reinforcement", "formula"] },
+      { id: "sovereign_minister", stage: 2, term: "君臣佐使", en: "Sovereign, Minister, Assistant, Courier", cat: "配伍", diff: 3, def: "方剂中药物按主次地位分工的组成原则。", example: "君药针对主病，臣药辅助君药。", tip: "君臣佐使是方剂结构逻辑。", related: ["compatibility", "formula", "mutual_reinforcement"] },
+      { id: "mutual_reinforcement", stage: 2, term: "相须", en: "Mutual Reinforcement", cat: "配伍", diff: 2, def: "性能相似的药物合用增强疗效。", example: "石膏与知母相须清热。", tip: "相须是增效配伍。", related: ["compatibility", "mutual_assistance", "mutual_restraint"] },
+      { id: "mutual_assistance", stage: 3, term: "相使", en: "Mutual Assistance", cat: "配伍", diff: 2, def: "一种药为主，另一种药辅助增强主药功效。", example: "黄芪配茯苓增强补气利水。", tip: "相使是主辅配合。", related: ["mutual_reinforcement", "mutual_restraint", "compatibility"] },
+      { id: "mutual_restraint", stage: 3, term: "相畏", en: "Mutual Restraint", cat: "配伍", diff: 3, def: "一种药物的毒性被另一种药物抑制。", example: "半夏畏生姜，生姜可制半夏毒。", tip: "相畏是减毒配伍。", related: ["mutual_assistance", "mutual_detoxification", "mutual_reinforcement"] },
+      { id: "mutual_detoxification", stage: 3, term: "相杀", en: "Mutual Detoxification", cat: "配伍", diff: 3, def: "一种药物能消除另一种药物的毒性。", example: "生姜杀半夏毒。", tip: "相杀与相畏常成对出现。", related: ["mutual_restraint", "mutual_antagonism", "toxicity"] },
+      { id: "mutual_antagonism", stage: 3, term: "相恶", en: "Mutual Antagonism", cat: "配伍", diff: 3, def: "一种药物削弱另一种药物的原有功效。", example: "人参恶莱菔子，补气作用被削弱。", tip: "相恶应尽量避免同用。", related: ["mutual_detoxification", "mutual_opposition", "mutual_restraint"] },
+      { id: "mutual_opposition", stage: 3, term: "相反", en: "Mutual Opposition", cat: "配伍", diff: 3, def: "两种药物合用产生毒性或不良反应。", example: "相反药对属于配伍禁忌。", tip: "相反药原则上禁止同用。", related: ["mutual_antagonism", "eighteen_incompatibilities", "compatibility"] },
+      { id: "eighteen_incompatibilities", stage: 3, term: "十八反", en: "Eighteen Incompatibilities", cat: "禁忌", diff: 3, def: "十八组相反药对，原则上不宜同用。", example: "甘草反甘遂等药。", tip: "十八反是经典配伍禁忌歌诀。", related: ["mutual_opposition", "nineteen_fears", "formula"] },
+      { id: "nineteen_fears", stage: 4, term: "十九畏", en: "Nineteen Fears", cat: "禁忌", diff: 3, def: "十九组相畏药对，一般不宜同用。", example: "硫黄畏朴硝等。", tip: "十九畏是传统用药禁忌。", related: ["eighteen_incompatibilities", "mutual_restraint", "formula"] },
+      { id: "exterior_releasing", stage: 4, term: "解表药", en: "Exterior-Releasing Medicinals", cat: "药类", diff: 1, def: "以发散表邪为主要功效的药物。", example: "麻黄、薄荷属于解表药。", tip: "解表药多用于外感表证。", related: ["material", "formula", "processing"] },
+      { id: "heat_clearing", stage: 4, term: "清热药", en: "Heat-Clearing Medicinals", cat: "药类", diff: 1, def: "以清泄里热为主要功效的药物。", example: "黄连、金银花属于清热药。", tip: "清热药性多寒凉。", related: ["material", "four_natures", "formula"] },
+      { id: "tonifying", stage: 4, term: "补虚药", en: "Tonifying Medicinals", cat: "药类", diff: 1, def: "能补益气血阴阳、增强机能的药物。", example: "人参补气，当归补血。", tip: "补虚药宜辨证使用。", related: ["material", "formula", "blood_activating"] },
+      { id: "blood_activating", stage: 4, term: "活血药", en: "Blood-Activating Medicinals", cat: "药类", diff: 1, def: "能促进血行、消散瘀血的药物。", example: "丹参、川芎属于活血药。", tip: "活血药常用于血瘀证。", related: ["material", "tonifying", "formula"] },
+      { id: "formula", stage: 4, term: "方剂", en: "Formula", cat: "方剂", diff: 2, def: "按君臣佐使原则组成的药物组合。", example: "四君子汤是补气基础方。", tip: "方剂是配伍思想的落地形式。", related: ["compatibility", "sovereign_minister", "material"] }
+    ]
   }
 ];
